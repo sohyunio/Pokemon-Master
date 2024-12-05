@@ -48,6 +48,9 @@ public:
 	skill skills[4];
 };
 
+// display battle board
+void board(Pokemon &p1, Pokemon &p2, int turn);
+
 int main(){
 	return 0;
 	}
