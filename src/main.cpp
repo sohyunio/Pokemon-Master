@@ -146,3 +146,148 @@ int Pokemon::HP_change(int damage, int attacktype = 0) {
 	HP -= damage + TYPE[attacktype][type];
 	return HP;
 }
+
+// print game board
+void board(Pokemon &p1, Pokemon &p2, int turn) {
+	// title
+	string temp = "+";
+	temp.resize(62, '-');
+	cout << temp << "+" << endl;
+	cout << "| 2024-02 Object-Oriented Programming Pokemon Master          |" << endl;
+	// Pokemon info
+	// first line print
+	temp = "";
+	temp.resize(30, '-');
+	cout << "+" << temp << "+" << temp << "+" << endl;
+
+	// name
+	temp = "| ";
+	temp.append(p1.name);
+	if (turn == 0)
+		temp.append(" (*)");
+	temp.resize(31, ' ');
+	temp.append("| ").append(p2.name);
+	if (turn == 1)
+		temp.append(" (*)");
+	temp.resize(62, ' ');
+	cout << temp << "|\n";
+	// type
+	temp = "| Type: ";
+	temp.append(type[p1.type]);
+	temp.resize(31, ' ');
+	temp.append("| Type: ").append(type[p2.type]);
+	temp.resize(62, ' ');
+	cout << temp << "|\n";
+	// HP
+	temp = "| HP: ";
+	temp.append(to_string(p1.HP)); // here
+	temp.resize(31, ' ');
+	temp.append("| HP: ").append(to_string(p2.HP));
+	temp.resize(62, ' ');
+	cout << temp << "|\n";
+
+	// second line print
+	temp = "";
+	temp.resize(30, '-');
+	cout << "+" << temp << "+" << temp << "+" << endl;
+	// latest skill --- > 수정하기
+	temp = "| Latest Skill: ";
+	if (p1.skill_data == -1)
+		temp.append("-");
+	else
+		temp.append(p1.skills[p1.skill_data].name);
+	temp.resize(31, ' ');
+	temp.append("| Latest Skill: ");
+	if (p2.skill_data == -1)
+		temp.append("-");
+	else
+		temp.append(p2.skills[p2.skill_data].name);
+	temp.resize(62, ' ');
+	cout << temp << "|\n";
+	// effectivess
+	temp = "| ";
+	if (p1.skill_data != -1) {
+		temp.append(p1.effectiveness(p2, p1.skills[p1.skill_data].type));
+	}
+	temp.resize(31, ' ');
+	temp.append("| ");
+	if (p2.skill_data != -1) {
+		temp.append(p2.effectiveness(p1, p2.skills[p2.skill_data].type));
+	}
+	temp.resize(62, ' ');
+	cout << temp << "|\n";
+	// third line print
+	temp = "";
+	temp.resize(30, '-');
+	cout << "+" << temp << "+" << temp << "+" << endl;
+	// print all skills
+	for (int i = 0; i < 4; i++) {
+		temp = "";
+		temp.append("| (").append(to_string(i)).append( ") ").append(p1.skills[i].name);
+		temp.resize(31, ' ');
+		temp.append("| (").append(to_string(i)).append(") ").append(p2.skills[i].name);
+		temp.resize(62, ' ');
+		cout << temp << "|\n";
+
+		temp = "|     - Type: ";
+		temp.append(type[p1.skills[i].type]);
+		temp.resize(31, ' ');
+		temp.append("|     - Type: ").append(type[p2.skills[i].type]);
+		temp.resize(62, ' ');
+		cout << temp << "|\n";
+
+		temp = "|     - Damage: ";
+		temp.append(to_string(p1.skills[i].damage));
+		temp.resize(31, ' ');
+		temp.append("|     - Damage: ").append(to_string(p2.skills[i].damage));
+		temp.resize(62, ' ');
+		cout << temp << "|\n";
+
+		temp = "|     - Count: ";
+		temp.append(to_string(p1.skills[i].count)).append("(").append(to_string(p1.skills[i].maxTry)).append(")");
+		temp.resize(31, ' ');
+		temp.append("|     - Count: ").append(to_string(p2.skills[i].count)).append("(").append(to_string(p2.skills[i].maxTry)).append(")");
+		temp.resize(62, ' ');
+		cout << temp << "|\n";
+	}
+	// last line print
+	temp = "";
+	temp.resize(30, '-');
+	cout << "+" << temp << "+" << temp << "+" << endl;
+
+	// next turn
+	int skillNum;
+	cout << "Choose a skill (0~3): ";
+	cin >> skillNum;
+	if (turn == 0)
+	{
+		p1.skill_data = skillNum;
+		if (p1.skill_count(skillNum)) {
+			cout << p1.name << " used " << p1.skills[skillNum].name << ".\n";
+			cout << p1.effectiveness(p2, p1.skills[skillNum].type) << "\n\n";
+			p2.HP_change(p1.skills[skillNum].damage, p1.skills[skillNum].type);
+		}
+	}
+	else
+	{
+		p2.skill_data = skillNum;
+		if (p2.skill_count(skillNum)) {
+			cout << p2.name << " used " << p2.skills[skillNum].name << ".\n";
+			cout << p2.effectiveness(p1, p2.skills[skillNum].type) << "\n\n";
+			p1.HP_change(p2.skills[skillNum].damage, p2.skills[skillNum].type);
+		}
+	}
+
+}
+
+// check skill count
+int Pokemon::skill_count(int attacktype) {
+	skill_data = attacktype;
+	if (skills[attacktype].count == 0) {
+		cout << name << " failed to perform " << skills[attacktype].name << ".\n\n";
+		return 0;
+	}
+	skills[attacktype].count--;
+	return 1;
+}
+
