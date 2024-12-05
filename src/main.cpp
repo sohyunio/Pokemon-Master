@@ -34,6 +34,7 @@ public:
 		: name(n), type(t), damage(d), maxTry(m), count(m) {}
 };
 
+// define Pokemon
 class Pokemon {
 public:
 	Pokemon(int p);  // constructor
@@ -259,7 +260,7 @@ void board(Pokemon &p1, Pokemon &p2, int turn) {
 	int skillNum;
 	cout << "Choose a skill (0~3): ";
 	cin >> skillNum;
-	if (turn == 0)
+	if (turn == 0)  // p1 turn
 	{
 		p1.skill_data = skillNum;
 		if (p1.skill_count(skillNum)) {
@@ -268,7 +269,7 @@ void board(Pokemon &p1, Pokemon &p2, int turn) {
 			p2.HP_change(p1.skills[skillNum].damage, p1.skills[skillNum].type);
 		}
 	}
-	else
+	else  // p2 turn
 	{
 		p2.skill_data = skillNum;
 		if (p2.skill_count(skillNum)) {
