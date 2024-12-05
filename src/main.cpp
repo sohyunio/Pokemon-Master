@@ -87,3 +87,54 @@ int main()
 	}
 
 }
+// initialize pokemon data
+Pokemon::Pokemon(int p) {
+	switch (p) {
+	case 0:
+		name = "Pikachu";
+		type = ELECTRIC;
+		HP = 35;
+		skills[0] = skill("Tackle", NORMAL, 4, 5);
+		skills[1] = skill("Grass Knot", GRASS, 8, 5);
+		skills[2] = skill("Thunderbolt", ELECTRIC, 10, 5);
+		skills[3] = skill("Megabolt", ELECTRIC, 15, 3);
+		break;
+	case 1:
+		name = "Dratini";
+		type = WATER;
+		HP = 41;
+		skills[0] = skill("Wrap", NORMAL, 4, 10);
+		skills[1] = skill("Aqua Tail", WATER, 3, 5);
+		skills[2] = skill("Water Pulse", WATER, 13, 2);
+		skills[3] = skill("Hyper Beam", NORMAL, 20, 1);
+		break;
+	case 2:
+		name = "Eevee";
+		type = NORMAL;
+		HP = 55;
+		skills[0] = skill("Tackle", NORMAL, 4, 5);
+		skills[1] = skill("Sand Attack", GROUND, 8, 3);
+		skills[2] = skill("Bite", NORMAL, 12, 3);
+		skills[3] = skill("Rain Dance", WATER, 15, 1);
+		break;
+	case 3:
+		name = "Charmander";
+		type = FIRE;
+		HP = 39;
+		skills[0] = skill("Tackle", NORMAL, 4, 5);
+		skills[1] = skill("Flamethrower", FIRE, 11, 5);
+		skills[2] = skill("Dig", GROUND, 7, 5);
+		skills[3] = skill("Heat Wave", FIRE, 14, 5);
+		break;
+	case 4:
+		name = "Palkia";
+		type = WATER;
+		HP = 90;
+		skills[0] = skill("Hydro Pump", WATER, 12, 10);
+		skills[1] = skill("Earth Power", GROUND, 15, 10);
+		skills[2] = skill("Surf", WATER, 13, 10);
+		skills[3] = skill("Spatial Rend", NORMAL, 30, 10);
+		break;
+	}
+}
+
