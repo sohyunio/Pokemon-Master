@@ -138,3 +138,11 @@ Pokemon::Pokemon(int p) {
 	}
 }
 
+// update HP value
+int Pokemon::HP_change(int damage, int attacktype = 0) {
+	if (damage == 0) {
+		return HP;
+	}
+	HP -= damage + TYPE[attacktype][type];
+	return HP;
+}
