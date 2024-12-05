@@ -291,3 +291,27 @@ int Pokemon::skill_count(int attacktype) {
 	return 1;
 }
 
+<<<<<<< HEAD
+=======
+// return effectiveness of attack
+string Pokemon::effectiveness(Pokemon mon, int attacktype) {
+	switch (TYPE[attacktype][mon.type])
+	{
+	case -3: {
+		string effect = "It was not very effective.";
+		return effect;
+		break;
+	}
+	case 0: {
+		string effect = "It was effective.";
+		return effect;
+		break;
+	}
+	case 5: {
+		string effect = "It was super effective.";
+		return effect;
+		break;
+	}
+	};
+}
+>>>>>>> db74af1 (define effectiveness function)
