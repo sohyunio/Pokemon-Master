@@ -34,6 +34,20 @@ public:
 		: name(n), type(t), damage(d), maxTry(m), count(m) {}
 };
 
+class Pokemon {
+public:
+	Pokemon(int p);  // constructor
+	int HP_change(int damage, int attacktype);  // modify pokemon's HP
+	int skill_count(int attacktype);  // reduce count of used skill
+	string effectiveness(Pokemon mon, int attacktype);  // effectiveness of attack
+
+	string name;
+	int HP;
+	int type;
+	int skill_data = -1;
+	skill skills[4];
+};
+
 int main(){
 	return 0;
 	}
