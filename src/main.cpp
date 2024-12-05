@@ -51,6 +51,39 @@ public:
 // display battle board
 void board(Pokemon &p1, Pokemon &p2, int turn);
 
-int main(){
-	return 0;
+int main()
+{
+	// choose pokemons
+	int p1, p2;
+	cout << "Choose a Pokemon(0~4): ";
+	cin >> p1;
+	cout << "Choose a Pokemon(0~4): ";
+	cin >> p2;
+	if (p1 == p2)  // same pokemon
+	{
+		cout << "You have to choose Pokemons different from each other.";
+		exit(1);
 	}
+
+	Pokemon mon1(p1), mon2(p2);
+	int turn = 0;
+	// game loop
+	while (true) {
+		board(mon1, mon2, turn);
+		turn = (turn + 1) % 2;  // next turn
+		// check the winner
+		if (mon1.HP <= 0)
+		{
+			cout << "===============================================================\n";
+			cout << "Match Result: " << mon2.name << " defeats " << mon1.name << endl;
+			break;
+		}
+		else if (mon2.HP <= 0)
+		{
+			cout << "===============================================================\n";
+			cout << "Match Result: " << mon1.name << " defeats " << mon2.name << endl;
+			break;
+		}
+	}
+
+}
